@@ -1,2 +1,5 @@
 # webstorm ide 
 .idea
+
+# node modules
+app/node_modules/
