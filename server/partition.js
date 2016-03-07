@@ -78,9 +78,10 @@ oboe(fs.createReadStream('./crimez.json'))
         crimez[crime.Year].push(crime);
    })
    .done(function(things){
-       console.log("Outputting files...");
        const years = Object.keys(crimez);
+       console.log('years: '+JSON.stringify(years,null,2));
        for(let i = 0; i < years.length; i++) {
-           fs.writeFile('./data/'+years[i]+'.json', JSON.stringify(crimez[years[i]], null, 2));
+           console.log("Outputting files..."+'./data/'+years[i]+'.json');
+           fs.writeFileSync('./data/'+years[i]+'.json', JSON.stringify(crimez[years[i]], null, 2));
        }
    });
