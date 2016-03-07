@@ -6,9 +6,12 @@
     app.AppComponent =
         ng.core.Component({
                 selector: 'my-app',
-                template: '<h1>My Second Angular 2 App</h1>'
+                template: '<div id="mapid"></div>'
             })
             .Class({
                 constructor: function() {}
+
+
             });
+
 })(window.app || (window.app = {}));
