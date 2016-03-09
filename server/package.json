@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "oboe": "^2.1.2"
+    "oboe": "^2.1.2",
+    "underscore": "^1.8.3"
   }
 }
