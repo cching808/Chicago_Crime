@@ -5,8 +5,7 @@
 (function(app) {
     app.AppComponent =
         ng.core.Component({
-                selector: 'my-app',
-                template: '<div id="mapid"></div>'
+
             })
             .Class({
                 constructor: function() {}
