@@ -51,23 +51,31 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
     var createIconViewLayer = function () {
 
         // Requires an input of an array of crimes for a given day/range from the slider 
-        var day = '1';
-        var lat = parseFloat($scope.crimes['1'][700].Latitude);
-        var lon = parseFloat($scope.crimes['1'][700].Longitude);
-        var geojson = [{
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [lon, lat]
-            },
-            "properties": {
-                "title": $scope.crimes[day][700]["Primary Type"],
-                "description": $scope.crimes[day][700].Block,
-                "marker-color": "#3ca0d3",
-                "marker-size": "large",
-                "marker-symbol": "police"
+        var day = '40';
+        var geojson = _.map($scope.crimes[day], function(crime) {
+            var lat = parseFloat(crime.Latitude);
+            var lon = parseFloat(crime.Longitude);
+            if(lat && lon) {
+                return {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [lon, lat]
+                    },
+                    "properties": {
+                        "title": crime["Primary Type"],
+                        "description": crime.Block,
+                        "marker-color": "#3ca0d3",
+                        "marker-size": "large",
+                        "marker-symbol": "police"
+                    }
+                };
+            } else {
+                return {};
             }
-        }];
+        });
+
+        console.log(JSON.stringify(geojson,null,2));
 
         var iconViewLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo($scope.map);
     };
