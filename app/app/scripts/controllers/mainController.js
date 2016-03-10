@@ -1,10 +1,13 @@
 /**
  * Created by coreyching on 3/6/16.
  */
-(function(app) {
+var chicagoControllers = angular.module('chicagoControllers', []);
 
+chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($scope, $http) {
 
-    window.map;
+    //$http.get('/data/2016.json').success(function(data) {
+    //    $scope.phones = data;
+    //});
 
     var createMap = function() {
         // Provide your access token
@@ -16,7 +19,7 @@
         var bounds = L.latLngBounds(southWest, northEast);
 
         // Create a map in the div #map
-        window.map = L.mapbox.map('map', 'mapbox.streets', {
+        $scope.map = L.mapbox.map('map', 'mapbox.streets', {
             maxBounds: bounds,
             maxZoom: 19,
             minZoom: 10
@@ -24,13 +27,14 @@
     };
 
     createMap();
+    console.log("inside main controller");
 
     var createHeatLayer = function() {
         var heat = L.heatLayer(addressPoints, {maxZoom: 18}).addTo(map);
         var draw = true;
 
         // add points on mouse move (except when interacting with the map)
-        window.map.on({
+        $scope.map.on({
             movestart: function () { draw = false; },
             moveend:   function () { draw = true; },
             mousemove: function (e) {
@@ -41,6 +45,8 @@
         })
     };
 
+    //createHeatLayer();
+
     var createIconViewLayer = function () {
 
     };
@@ -48,4 +54,6 @@
     var createSideView  = function() {
 
     }
-})(window.app || (window.app = {}));
+
+}]);
+
