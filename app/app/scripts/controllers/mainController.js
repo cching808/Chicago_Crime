@@ -1,7 +1,7 @@
 /**
  * Created by coreyching on 3/6/16.
  */
-var chicagoControllers = angular.module('Chicago', []);
+var chicagoControllers = angular.module('chicagoControllers', []);
 
 chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($scope, $http) {
 

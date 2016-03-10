@@ -10,7 +10,7 @@ chicagoApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
         when('/', {
-            templateUrl: 'views/main-view.html',
+            templateUrl: 'app/views/main-view.html',
             controller: 'MainViewCtrl'
         }).
         otherwise({
