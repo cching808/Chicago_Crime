@@ -5,9 +5,10 @@ var chicagoControllers = angular.module('chicagoControllers', []);
 
 chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($scope, $http) {
 
-    //$http.get('/data/2016.json').success(function(data) {
-    //    $scope.phones = data;
-    //});
+    $http.get('/data/2016.json').success(function(data) {
+        $scope.crimes = data;
+        createIconViewLayer();
+    });
 
     var createMap = function() {
         // Provide your access token
@@ -49,6 +50,26 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
 
     var createIconViewLayer = function () {
 
+        // Requires an input of an array of crimes for a given day/range from the slider 
+        var day = '1';
+        var lat = parseFloat($scope.crimes['1'][700].Latitude);
+        var lon = parseFloat($scope.crimes['1'][700].Longitude);
+        var geojson = [{
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [lon, lat]
+            },
+            "properties": {
+                "title": $scope.crimes[day][700]["Primary Type"],
+                "description": $scope.crimes[day][700].Block,
+                "marker-color": "#3ca0d3",
+                "marker-size": "large",
+                "marker-symbol": "police"
+            }
+        }];
+
+        var iconViewLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo($scope.map);
     };
 
     var createSideView  = function() {
@@ -56,4 +77,3 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
     }
 
 }]);
-
