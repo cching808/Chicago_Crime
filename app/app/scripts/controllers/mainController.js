@@ -7,7 +7,7 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
 
     $http.get('/data/2016.json').success(function(data) {
         $scope.crimes = data;
-        createIconViewLayer();
+        createIconViewLayer('40');
     });
 
     var createMap = function() {
@@ -21,6 +21,7 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
 
         // Create a map in the div #map
         $scope.map = L.mapbox.map('map', 'mapbox.streets', {
+            fadeAnimation: true,
             maxBounds: bounds,
             maxZoom: 19,
             minZoom: 10
@@ -48,14 +49,54 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
 
     //createHeatLayer();
 
-    var createIconViewLayer = function () {
+    var createIconViewLayer = function (day) {
+        console.log('[Day '+day+']');
 
         // Requires an input of an array of crimes for a given day/range from the slider 
-        var day = '40';
         var geojson = _.map($scope.crimes[day], function(crime) {
             var lat = parseFloat(crime.Latitude);
             var lon = parseFloat(crime.Longitude);
             if(lat && lon) {
+                var symbol = "cross";
+                var color = '#777';
+                console.log(color);
+                if((crime["Primary Type"] === "BATTERY") ||
+                    (crime["Primary Type"] === "ASSAULT") ||
+                    (crime["Primary Type"] === "KIDNAPPING") ||
+                    (crime["Primary Type"] === "OFFENSE INVOLVING CHILDREN")) {
+                    symbol = "pitch";
+                    color = '#dd9787';
+                } else if((crime["Primary Type"] === "THEFT") ||
+                    (crime["Primary Type"] === "ROBBERY") ||
+                    (crime["Primary Type"] === "CRIMINAL DAMAGE") ||
+                    (crime["Primary Type"] === "CRIMINAL TRESPASS") ||
+                    (crime["Primary Type"] === "BURGLARY")) {
+                    symbol = "theatre";
+                    color = '#822165';
+                } else if((crime["Primary Type"] === "CRIM SEXUAL ASSAULT") ||
+                    (crime["Primary Type"] === "PROSTITUTION") ||
+                    (crime["Primary Type"] === "SEX OFFENSE")) {
+                    symbol = "school";
+                    color = '#fbcfb7';
+                } else if((crime["Primary Type"] === "PUBLIC PEACE VIOLATION") ||
+                    (crime["Primary Type"] === "INTERFERENCE WITH PUBLIC OFFICER") ||
+                    (crime["Primary Type"] === "WEAPONS VIOLATION")) {
+                    symbol = "police";
+                    color = '#337ca0';
+                } else if((crime["Primary Type"] === "GAMBLING") ||
+                    (crime["Primary Type"] === "NARCOTICS")) {
+                    symbol = "pharmacy";
+                    color = '#fffc31';
+                } else if((crime["Primary Type"] === "DECEPTIVE PRACTICE") ||
+                    (crime["Primary Type"] === "OTHER OFFENSE")) {
+                    symbol = "roadblock";
+                    color = '#3ec300';
+                } else if((crime["Primary Type"] === "ARSON")) {
+                    symbol = "fire-station";
+                    color = '#da2c38';
+                }
+                // color = '#'+ ('000000' + (Math.random()*0xFFFFFF<<0).toString(16)).slice(-6);
+                
                 return {
                     "type": "Feature",
                     "geometry": {
@@ -65,9 +106,9 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
                     "properties": {
                         "title": crime["Primary Type"],
                         "description": crime.Block,
-                        "marker-color": "#3ca0d3",
-                        "marker-size": "large",
-                        "marker-symbol": "police"
+                        "marker-color": color,
+                        "marker-size": "medium",
+                        "marker-symbol": symbol
                     }
                 };
             } else {
@@ -75,9 +116,12 @@ chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($sco
             }
         });
 
-        console.log(JSON.stringify(geojson,null,2));
-
-        var iconViewLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo($scope.map);
+        // console.log(JSON.stringify(geojson,null,2));
+        // var iconViewLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo($scope.map);
+        var iconViewLayer = L.mapbox
+            .featureLayer()
+            .setGeoJSON(geojson)
+            .addTo($scope.map);
     };
 
     var createSideView  = function() {
