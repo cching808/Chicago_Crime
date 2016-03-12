@@ -14,18 +14,17 @@ img {
     display: inline-block;
     height: 100vh;
     width: 30%;
-
     border-left: 1px solid lightgray;
     box-sizing: border-box;
 }
 
 #toggle-buttons {
     height: 50px;
-    width: 100%;
-    text-algin: center;
-    position: fixed;
-    bottom: 30px;
-    background-color: #a1e7d6;
+    min-width: 100%;
+    top: 85%;
+    position: relative;
+    overflow: auto;
+    text-align: center;
 }
 
 #calendar {
@@ -35,3 +34,20 @@ img {
 .toggle-button {
     display: inline-block;
 }
+
+.left {
+    width: 50%;
+    position: relative;
+    float: left;
+}
+
+.right {
+    width: 50%;
+    position: relative;
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+

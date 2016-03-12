@@ -35,9 +35,10 @@ var chicagoApp = angular.module('chicagoControllers', []);
         // Request the data, then create the appropriate layers
         $scope.map = createMap();
         $http.get('/data/2016.json').success(function(data) {
-            $scope.createHeatLayer(data);
-            var iconLayer = $scope.createIconLayer($scope.map, data);
-            iconLayer.on('click', function(e) {
+            $scope.data = data;
+            $scope.heatLayer = $scope.createHeatLayer($scope.data);
+            $scope.iconLayer = $scope.createIconLayer($scope.data);
+            $scope.iconLayer.on('click', function(e) {
                 console.log('Clicked a marker :)');
                 console.dir(e);
             });
