@@ -21,12 +21,12 @@
             if(type == 'heatmap') {
                 $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
                 $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
-                $scope.$parent.createHeatLayer($scope.$parent.data);
+                $scope.$parent.heatLayer = $scope.$parent.createHeatLayer($scope.$parent.data);
             }
             else {
                 $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
                 $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
-                $scope.$parent.createIconLayer($scope.$parent.data);
+                $scope.$parent.iconLayer = $scope.$parent.createIconLayer($scope.$parent.data);
             }
         }
     }
