@@ -1,12 +1,11 @@
 <div id="main" ng-controller="MainViewCtrl">
     <div id="map" ng-controller="MapViewCtrl"></div>
     <div id="sideView" ng-controller="SideViewCtrl">
-
-        <div id="toggle-buttons">
-        </div>
-
-        <div id="calendar">
-            <input name="daterange"/>
+        <div id="calendar" class="input-group date">
+            <input name="daterange" class="form-control"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
         </div>
     </div>
 </div>

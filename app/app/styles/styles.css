@@ -28,6 +28,10 @@ img {
     background-color: #a1e7d6;
 }
 
+#calendar {
+    top: 96%;
+}
+
 .toggle-button {
     display: inline-block;
 }
