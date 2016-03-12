@@ -1,12 +1,12 @@
 /**
  * Created by coreyching on 3/9/16.
  */
-var chicagoApp = angular.module('Chicago', [
+angular.module('Chicago', [
     'ngRoute',
     'chicagoControllers'
 ]);
 
-chicagoApp.config(['$routeProvider',
+angular.module('Chicago').config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
         when('/', {

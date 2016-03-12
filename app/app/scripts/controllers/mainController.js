@@ -1,9 +1,9 @@
 /**
  * Created by coreyching on 3/6/16.
  */
-var chicagoControllers = angular.module('chicagoControllers', []);
+angular.module('chicagoControllers', []);
 
-chicagoControllers.controller('MainViewCtrl', ['$scope', '$http', function ($scope, $http) {
+angular.module('chicagoControllers').controller('MainViewCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $http.get('/data/2016.json').success(function(data) {
 
