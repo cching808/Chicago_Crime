@@ -48,10 +48,10 @@
 
         function formatHeatData (data) {
             var temp = [];
-            var key = '40';
+            var key = '1';
             _.each(data[key], function(obj) {
                 if((obj.Latitude != null) && (obj.Longitude != null)) {
-                    $scope.addressPoints.push([parseFloat(obj.Latitude), parseFloat(obj.Longitude), 10])
+                    $scope.addressPoints.push([parseFloat(obj.Latitude), parseFloat(obj.Longitude), 15])
                 }
             })
         };

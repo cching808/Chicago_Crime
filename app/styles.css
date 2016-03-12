@@ -4,6 +4,7 @@ img {
   max-width: 100% !important;
 }
 
+
 #main {
     min-width: 100%;
 }
@@ -18,3 +19,5 @@ img {
     border-left: 1px solid lightgray;
     box-sizing: border-box;
 }
+
+
