@@ -3,3 +3,18 @@ body { margin:0; padding:0; }
 img {
   max-width: 100% !important;
 }
+
+#main {
+    min-width: 100%;
+}
+
+#sideView {
+    float: right;
+    background-color: #ececea;
+    display: inline-block;
+    height: 100vh;
+    width: 30%;
+
+    border-left: 1px solid lightgray;
+    box-sizing: border-box;
+}
