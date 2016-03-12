@@ -13,7 +13,6 @@
             $routeProvider.
             when('/', {
                 templateUrl: 'app/views/main-view.html',
-                controller: 'MainViewCtrl'
             }).
             otherwise({
                 redirectTo: '/'
