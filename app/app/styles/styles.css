@@ -4,7 +4,6 @@ img {
   max-width: 100% !important;
 }
 
-
 #main {
     min-width: 100%;
 }
@@ -20,4 +19,15 @@ img {
     box-sizing: border-box;
 }
 
+#toggle-buttons {
+    height: 50px;
+    width: 100%;
+    text-algin: center;
+    position: fixed;
+    bottom: 30px;
+    background-color: #a1e7d6;
+}
 
+.toggle-button {
+    display: inline-block;
+}
