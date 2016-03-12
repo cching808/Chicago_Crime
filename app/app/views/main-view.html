@@ -1,6 +1,13 @@
 <div id="main" ng-controller="MainViewCtrl">
     <div id="map" ng-controller="MapViewCtrl"></div>
     <div id="sideView" ng-controller="SideViewCtrl">
-        <div class="test-box"></div>
+        <div id="toggle-buttons">
+            <label class="toggle-button checkbox-inline">
+                <input type="checkbox" checked data-toggle="toggle"> First
+            </label>
+            <label class="toggle-button checkbox-inline">
+                <input type="checkbox" data-toggle="toggle"> Second
+            </label>
+        </div>
     </div>
 </div>
