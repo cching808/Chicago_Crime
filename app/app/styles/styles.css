@@ -67,3 +67,20 @@ img {
 .area {
   fill: steelblue;
 }
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+.d3-tooltip {
+    border-radius: 3px;
+    background-color: rgba(204, 204, 204, 0.5);
+    width: 100px;
+    text-align: center;
+}

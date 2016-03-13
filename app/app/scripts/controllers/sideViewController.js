@@ -42,7 +42,7 @@
             var margin = {top: 20, right: 20, bottom: 30, left: 50};
             var width = $(window).width() * 0.3 - margin.left - margin.right;
             var height = $(window).height() * 0.3 - margin.left - margin.right;
-            var crimes = $scope.$parent.data[day];
+            var data = $scope.$parent.data[day];
 
             var x = d3.time.scale()
                 .range([0, width]);
@@ -59,9 +59,9 @@
                 .orient("left");
 
             var area = d3.svg.area()
-                .x(function(d) { return x(d.date); })
+                .x(function(d) { return x(d.Date); })
                 .y0(height)
-                .y1(function(d) { return y(d.close); });
+                .y1(function(d) { return y(d["Crimes Within This Hour"]); });
 
             var svg = d3.select('#area-chart')
                 .append('svg')
@@ -69,48 +69,100 @@
                 .attr('height', height + margin.top + margin.bottom)
                 .append('g')
                 .attr('transform', 'translate('+margin.left+', '+margin.top+')');
-            
-            // crimes.forEach(function(d) {
-            //     var dayNum = moment(data[i].Date, 'YYYY-MM-DDTHH:mm:ss').date();
-            //     console.log(d.Date);
-            // });
 
-            // x.domain(d3.extent(data, function(d) { return d.hour; }));
-            // y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+ 
+            // Interval array containing tuples of crime data with their index
+            var interval = [];
+            var currentHour = 0;
 
-            d3.tsv("data/data.tsv", function(error, data) {
-              if (error) throw error;
+            for(let i = 0; i < data.length; i++) {
+                var hour = moment(data[i].Date, 'YYYY-MM-DDTHH:mm:ss').hour();
+                
+                // For the same hour, push the current crime in the interval for the hour
+                if(currentHour === hour) {
+                    interval.push({ index: i });
+                } else {
+                    // For a new hour, iterate through the interval array to assign "Crimes Within This Hour"
+                    for(let j = 0; j < interval.length; j++) {
+                        data[interval[j].index]["Crimes Within This Hour"] = interval.length;
+                    }
 
-              var parseDate = d3.time.format("%d-%b-%y").parse;
+                    //  Clear the interval array and push the new crime
+                    interval = [];
+                    interval.push({ index: i });
+                }
 
-              data.forEach(function(d) {
-                d.date = parseDate(d.date);
-                d.close = +d.close;
-              });
+                currentHour = hour;
+                data[i].Date = moment(data[i].Date, 'YYYY-MM-DDTHH:mm:ss').toDate();
+            }
 
-              x.domain(d3.extent(data, function(d) { return d.date; }));
-              y.domain([0, d3.max(data, function(d) { return d.close; })]);
+            //  Iterate through the interval array to assign "Crimes Within This Hour"
+            for(let j = 0; j < interval.length; j++) {
+                data[interval[j].index]["Crimes Within This Hour"] = interval.length;
+            }
 
-              svg.append("path")
-                  .datum(data)
-                  .attr("class", "area")
-                  .attr("d", area);
+            x.domain(d3.extent(data, function(d) { return d.Date; }));
+            y.domain([0, d3.max(data, function(d) { return d["Crimes Within This Hour"]; })]);
 
-              svg.append("g")
-                  .attr("class", "x axis")
-                  .attr("transform", "translate(0," + height + ")")
-                  .call(xAxis);
+            svg.append("path")
+                .datum(data)
+                .attr("class", "area")
+                .attr("d", area);
 
-              svg.append("g")
-                  .attr("class", "y axis")
-                  .call(yAxis)
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
                 .append("text")
-                  .attr("transform", "rotate(-90)")
-                  .attr("y", 6)
-                  .attr("dy", ".71em")
-                  .style("text-anchor", "end")
-                  .text("Price ($)");
-            });
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Crime");
+
+            var focus = svg.append("g")
+                .attr("class", "focus")
+                .style("display", "none");
+
+            focus.append("circle")
+                .attr("r", 4.5);
+
+            focus.append("foreignObject")
+                .attr("x", -90)
+                .attr("dy", ".35em");
+
+            svg.append("rect")
+                .attr("class", "overlay")
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .on("mouseover", function() { focus.style("display", null); })
+                .on("mouseout", function() { focus.style("display", "none"); })
+                .on("mousemove", mousemove);
+                    
+            function mousemove() {
+                var bisectDate = d3.bisector(function(d) { return d.Date; }).left
+                var x0 = x.invert(d3.mouse(this)[0]),
+                    i = bisectDate(data, x0, 1),
+                    d0 = data[i - 1],
+                    d1 = data[i],
+                    d = x0 - d0.Date > d1.Date - x0 ? d1 : d0;
+                focus.attr("transform", "translate(" + x(d.Date) + "," + y(d["Crimes Within This Hour"]) + ")");
+                focus.select("foreignObject").html(
+                    '<div class="d3-tooltip">' +
+                        '<p>' +
+                            moment(d.Date).format('h:mm a').toString().trim() +
+                        '</p>' +
+                        '<p>' +
+                            d["Primary Type"].charAt(0) +
+                            d["Primary Type"].toLowerCase().slice(1) +
+                        '</p>' +
+                    '</div>'
+                );
+            }
 
         }
 
