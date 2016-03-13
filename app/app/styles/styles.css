@@ -59,23 +59,23 @@ img {
 
 .axis path,
 .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
 }
 
 .area {
-  fill: steelblue;
+    fill: steelblue;
 }
 
 .overlay {
-  fill: none;
-  pointer-events: all;
+    fill: none;
+    pointer-events: all;
 }
 
 .focus circle {
-  fill: none;
-  stroke: steelblue;
+    fill: none;
+    stroke: steelblue;
 }
 
 .d3-tooltip {
@@ -85,6 +85,11 @@ img {
     background-color: rgba(238, 238, 238, 0.75);
     width: 100px;
     text-align: center;
+}
+
+.marker-block-text {
+    text-decoration:underline;
+    font-size: 13px;
 }
 
 #area-chart {

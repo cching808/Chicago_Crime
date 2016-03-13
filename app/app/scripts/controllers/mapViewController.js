@@ -33,6 +33,12 @@
             var geojson = _.map($scope.$parent.data[day], function(crime) {
                 var lat = parseFloat(crime.Latitude);
                 var lon = parseFloat(crime.Longitude);
+                var date = moment(crime.Date, 'YYYY-MM-DDTHH:mm:ss').format('MMMM Do YYYY');
+                var time = moment(crime.Date, 'YYYY-MM-DDTHH:mm:ss').format('h:mm a');
+                var block = crime.Block.substr(crime.Block.indexOf(' '), crime.Block.length);
+                block = block.replace(/\w\S*/g, function(txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
                 if(lat && lon) {
                     var color = '#777';
                     var symbol = "cross";
@@ -45,7 +51,9 @@
                         },
                         "properties": {
                             "title": crime["Primary Type"],
-                            "description": crime.Block,
+                            "description": crime.Description,
+                            "info": date+": Reported at " + time,
+                            "block": block,
                             "marker-color": attr.color,
                             "marker-size": "medium",
                             "marker-symbol": attr.symbol,
@@ -57,8 +65,30 @@
                 }
             });
 
+
+
             return L.mapbox
                 .featureLayer()
+                .on('layeradd', function(e) {
+                    var marker = e.layer;
+                    var props = marker.feature.properties;
+                    var popupContent = '<div style="line-height: 0">' +
+                            '<p style="font-size: 15px; margin:0">' +
+                                '<b>' + props.title + '   </b>'+
+                                '<i style="font-size: 11px">' + props.description + '</i>' +
+                            '</p>' +
+                            "<p class='marker-block-text'>" +
+                                props.block + 
+                            "</p>" +
+                            '<p style="font-size: 13px">' + props.info + '</p>' +
+                        '</div>';
+
+                    // http://leafletjs.com/reference.html#popup
+                    marker.bindPopup(popupContent,{
+                        closeButton: false,
+                        minWidth: 320
+                    });
+                })
                 .setGeoJSON(geojson)
                 .addTo($scope.map);
         };
