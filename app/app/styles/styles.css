@@ -21,14 +21,20 @@ img {
 #toggle-buttons {
     height: 50px;
     min-width: 100%;
-    top: 85%;
+    top: 65%;
     position: relative;
     overflow: auto;
     text-align: center;
 }
 
 #calendar {
-    top: 96%;
+    top: 68%;
+}
+
+#street-view {
+    top: 25%;
+    position: relative;
+    height: 150px;
 }
 
 .toggle-button {

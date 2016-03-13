@@ -28,9 +28,20 @@
                 $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
                 $scope.$parent.iconLayer = $scope.$parent.createIconLayer($scope.$parent.data);
             }
-        }
-    }
+        };
 
+        var panorama;
+        function loadStreetMap(lat, lng) {
+            panorama = new google.maps.StreetViewPanorama(
+                document.getElementById('street-view'),
+                {
+                    position: {lat: lat, lng: lng},
+                    pov: {heading: 165, pitch: 0},
+                    zoom: 1
+                });
+        }
+        $scope.$parent.loadStreetMap = loadStreetMap;
+    }
 
 })(util.datepickerOptions);
 
