@@ -1,5 +1,5 @@
 
-(function(options, getCrimesPerHour) {
+(function(options, getCrimesPerHour, getCrimeAttribute) {
     'use strict';
     angular.module('chicagoControllers')
         .controller('SideViewCtrl', ['$scope', '$http', SideViewCtrl]);
@@ -102,7 +102,7 @@
                 .attr("dy", ".71em")
                 .attr("class", "y-axis-text")
                 .style("text-anchor", "end")
-                .text("Frequency of Crime");
+                .text("Frequency of Total Crime");
 
             var focus = svg.append("g")
                 .attr("class", "focus")
@@ -127,14 +127,12 @@
         $scope.$parent.initAreaChart = initAreaChart;
 
         function updateAreaChart(primaryType) {
-            console.log('Updating area chart to show: '+primaryType);
             var day = '1';
             // Find the number of crimes per hours
             var data = getCrimesPerHour($scope.$parent.data[day]);
             var yAxisText;
             var xPos;
             if(primaryType) {
-                console.log('primary type is defined');
                 data = _.filter(data, function(crime) {
                     return crime["Primary Type"] === primaryType;
                 });
@@ -146,8 +144,7 @@
                 yAxisText = "Frequency of "+primaryType;
                 xPos = -35 + primaryType.length;
             } else {
-                console.log('primary type NOT is defined');
-                yAxisText = "Frequency of Crime";
+                yAxisText = "Frequency of Total Crime";
                 xPos = -50;
             }
 
@@ -158,8 +155,11 @@
             d3.select('.area')
                 .data([data])
                 .attr('d', getArea(data))
-                .transition().duration(2500)
-                .attr('d', getArea(data, 'Crimes Within This Hour'));
+                .transition().duration(1500)
+                .attr('d', getArea(data, 'Crimes Within This Hour'))
+                .style('fill', function(d) { 
+                    return primaryType ? getCrimeAttribute(primaryType.toUpperCase()).color : '#adbce6'
+                })
         }
         $scope.$parent.updateAreaChart = updateAreaChart;
         
@@ -220,5 +220,5 @@
     
     }
 
-})(util.datepickerOptions, util.getCrimesPerHour);
+})(util.datepickerOptions, util.getCrimesPerHour, util.getCrimeAttribute);
 
