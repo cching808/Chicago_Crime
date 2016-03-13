@@ -17,11 +17,13 @@
                 $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
                 $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
                 $scope.$parent.heatLayer = $scope.$parent.createHeatLayer($scope.$parent.data);
+                updateAreaChart();
             }
             else {
                 $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
                 $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
                 $scope.$parent.iconLayer = $scope.$parent.createIconLayer($scope.$parent.data);
+                updateAreaChart();
             }
         };
 
@@ -63,7 +65,6 @@
 
             var x = d3.time.scale().range([0, width]);
             var y = d3.scale.linear().range([height, 0]);
-            var axes = formatAxes(x, y);
 
             var svg = d3.select('#area-chart')
                 .append('svg')
@@ -77,6 +78,8 @@
 
             x.domain(d3.extent(data, function(d) { return d.Date; }));
             y.domain([0, d3.max(data, function(d) { return d["Crimes Within This Hour"]; })]);
+
+            var axes = formatAxes(x, y);
 
             // Create the area chart path and axes
             svg.append("path")
@@ -94,10 +97,12 @@
                 .call(axes.y)
                 .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("y", 6)
+                .attr("x", -50)
+                .attr("y", -45)
                 .attr("dy", ".71em")
+                .attr("class", "y-axis-text")
                 .style("text-anchor", "end")
-                .text("Crime");
+                .text("Frequency of Crime");
 
             var focus = svg.append("g")
                 .attr("class", "focus")
@@ -126,9 +131,29 @@
             var day = '1';
             // Find the number of crimes per hours
             var data = getCrimesPerHour($scope.$parent.data[day]);
-            data = _.filter(data, function(crime) {
-                return crime["Primary Type"] === primaryType;
-            });
+            var yAxisText;
+            var xPos;
+            if(primaryType) {
+                console.log('primary type is defined');
+                data = _.filter(data, function(crime) {
+                    return crime["Primary Type"] === primaryType;
+                });
+
+                var primaryType = primaryType.replace(/\w\S*/g, function(txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                })
+                
+                yAxisText = "Frequency of "+primaryType;
+                xPos = -35 + primaryType.length;
+            } else {
+                console.log('primary type NOT is defined');
+                yAxisText = "Frequency of Crime";
+                xPos = -50;
+            }
+
+            d3.select(".y-axis-text")
+                .attr("x", xPos)
+                .text(yAxisText);
 
             d3.select('.area')
                 .data([data])
@@ -144,11 +169,12 @@
             var height = $(window).height() * 0.3 - margin.left - margin.right;
             var x = d3.time.scale().range([0, width]);
             var y = d3.scale.linear().range([height, 0]);
-            var axes = formatAxes(x, y);
 
             x.domain(d3.extent(datum, function(d) { return d.Date; }));
             y.domain([0, d3.max(datum, function(d) { return d["Crimes Within This Hour"]; })]);
                 
+            var axes = formatAxes(x, y);
+
             d3.select('.x.axis').call(axes.x);
             d3.select('.y.axis').call(axes.y)
 
