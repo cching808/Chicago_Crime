@@ -42,6 +42,7 @@ var chicagoApp = angular.module('chicagoControllers', []);
         $scope.init = function () {
             $scope.heatLayer = $scope.createHeatLayer();
             $scope.iconLayer = $scope.createIconLayer();
+            $scope.loadAreaChart();
         };
 
         $scope.$watch('iconLayer', function(newValue, oldValue) {
