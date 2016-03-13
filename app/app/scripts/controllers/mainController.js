@@ -42,15 +42,16 @@ var chicagoApp = angular.module('chicagoControllers', []);
         $scope.init = function () {
             $scope.heatLayer = $scope.createHeatLayer();
             $scope.iconLayer = $scope.createIconLayer();
-            $scope.loadAreaChart();
+            $scope.initAreaChart();
         };
 
         $scope.$watch('iconLayer', function(newValue, oldValue) {
             if($scope.iconLayer) {
                 $scope.iconLayer.on('click', function(e) {
                     console.dir(e);
+                    var details = e.layer.feature.properties.details;
+                    $scope.updateAreaChart(details["Primary Type"]);
                     $scope.loadStreetMap(e.latlng.lat, e.latlng.lng);
-
                 });
             }
         });

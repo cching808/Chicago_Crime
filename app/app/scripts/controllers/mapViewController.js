@@ -48,7 +48,8 @@
                             "description": crime.Block,
                             "marker-color": attr.color,
                             "marker-size": "medium",
-                            "marker-symbol": attr.symbol
+                            "marker-symbol": attr.symbol,
+                            "details": crime
                         }
                     };
                 } else {

@@ -134,5 +134,40 @@ var util = {
         "maxDate": "02/19/2016",
         "opens": "left",
         "drops": "up"
+    },
+    // Utility function to find the number of crimes within every hour
+    getCrimesPerHour: function(data) {
+        // Interval array containing tuples of crime data with their index
+        var temp = JSON.parse(JSON.stringify(data));
+        var interval = [];
+        var currentHour = 0;
+
+        for(var i = 0; i < temp.length; i++) {
+            var hour = moment(temp[i].Date, 'YYYY-MM-DDTHH:mm:ss').hour();
+            
+            // For the same hour, push the current crime in the interval for the hour
+            if(currentHour === hour) {
+                interval.push({ index: i });
+            } else {
+                // For a new hour, iterate through the interval array to assign "Crimes Within This Hour"
+                for(var j = 0; j < interval.length; j++) {
+                    temp[interval[j].index]["Crimes Within This Hour"] = interval.length;
+                }
+
+                //  Clear the interval array and push the new crime
+                interval = [];
+                interval.push({ index: i });
+            }
+
+            currentHour = hour;
+            temp[i].Date = moment(temp[i].Date, 'YYYY-MM-DDTHH:mm:ss').toDate();
+        }
+
+        //  Iterate through the interval array to assign "Crimes Within This Hour"
+        for(var j = 0; j < interval.length; j++) {
+            temp[interval[j].index]["Crimes Within This Hour"] = interval.length;
+        }
+
+        return temp;
     }
 };
