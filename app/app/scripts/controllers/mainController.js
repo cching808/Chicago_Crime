@@ -33,15 +33,25 @@ var chicagoApp = angular.module('chicagoControllers', []);
     // Main view controller
     function MainViewCtrl($scope, $http) {
         // Request the data, then create the appropriate layers
-        $scope.map = createMap();
         $http.get('/data/2016.json').success(function(data) {
             $scope.data = data;
-            $scope.heatLayer = $scope.createHeatLayer($scope.data);
-            $scope.iconLayer = $scope.createIconLayer($scope.data);
-            $scope.iconLayer.on('click', function(e) {
-                console.log('Clicked a marker :)');
-                console.dir(e);
-            });
+            $scope.map = createMap();
+            $scope.init();
+        });
+
+        $scope.init = function () {
+            $scope.heatLayer = $scope.createHeatLayer();
+            $scope.iconLayer = $scope.createIconLayer();
+        };
+
+        $scope.$watch('iconLayer', function(newValue, oldValue) {
+            if($scope.iconLayer) {
+                $scope.iconLayer.on('click', function(e) {
+                    console.dir(e);
+                    $scope.loadStreetMap(e.latlng.lat, e.latlng.lng);
+
+                });
+            }
         });
     }
 

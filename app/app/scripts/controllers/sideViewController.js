@@ -8,6 +8,8 @@
         console.log(':^)');
     }
 
+
+
     function SideViewCtrl($scope, $http) {
         console.log('--> in SideViewCtrl');
         $scope.$parent.createSideView = createSideView;
@@ -28,7 +30,19 @@
                 $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
                 $scope.$parent.iconLayer = $scope.$parent.createIconLayer($scope.$parent.data);
             }
+        };
+
+        var panorama;
+        function loadStreetMap(lat, lng) {
+            panorama = new google.maps.StreetViewPanorama(
+                document.getElementById('street-view'),
+                {
+                    position: {lat: lat, lng: lng},
+                    pov: {heading: 165, pitch: 0},
+                    zoom: 1
+                });
         }
+        $scope.$parent.loadStreetMap = loadStreetMap;
     }
 
 })(datepickerOptions);
@@ -99,5 +113,5 @@ var datepickerOptions = {
     "minDate": "01/01/2016",
     "maxDate": "02/19/2016",
     "opens": "left",
-    "drops": "up"
+    "drops": "down"
 };
