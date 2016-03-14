@@ -79,6 +79,7 @@
             var height = $(window).height() * 0.40 - margin.left - margin.right;
             var data = $scope.$parent.data[$scope.$parent.day];
 
+            console.log($(window).width()*0.3);
             var x = d3.time.scale().range([0, width]);
             var y = d3.scale.linear().range([height, 0]);
 
@@ -124,7 +125,7 @@
             svg.append("g")
                 .attr("class", "area-chart-title")
                 .append("text")
-                .attr("x", 70)
+                .attr("x", 40)
                 .attr("y", 10)
                 .text("Frequency of Crime Between Hour Intervals");
 
@@ -169,7 +170,7 @@
                     .remove()
                 d3.select('.area-chart-title')
                     .append('text')
-                    .attr("x", function() { return  70 - primaryType.length / 1.2 })
+                    .attr("x", 40)
                     .attr("y", 10)
                     .text('Frequency of '+primaryType+' Between Hour Intervals');
             } else {
@@ -178,7 +179,7 @@
                     .remove()
                 d3.select('.area-chart-title')
                     .append('text')
-                    .attr("x", 70)
+                    .attr("x", 40)
                     .attr("y", 10)
                     .text('Frequency of Crime Between Hour Intervals');
             }
