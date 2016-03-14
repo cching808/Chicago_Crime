@@ -120,7 +120,7 @@
                 .attr("dy", ".71em")
                 .attr("class", "y-axis-text")
                 .style("text-anchor", "middle")
-                .text("Instances of crime");
+                .text("Crime Count per Hour");
 
             svg.append("g")
                 .attr("class", "area-chart-title")
@@ -128,7 +128,7 @@
                 .attr('x', (width / 2))
                 .attr('y', (margin.top / 2))
                 .attr("text-anchor", "middle")
-                .text("Frequency of Crime Between Hour Intervals");
+                .text("Frequency of Crime in a Day");
 
             var focus = svg.append("g")
                 .attr("class", "focus")
@@ -178,7 +178,7 @@
                     .attr('x', (width / 2))
                     .attr('y', (margin.top / 2))
                     .style("text-anchor", "middle")
-                    .text('Frequency of '+primaryType+' Between Hour Intervals');
+                    .text('Frequency of '+primaryType+' in a Day');
             } else {
                 // Update the area chart title
                 d3.select('.area-chart-title text')
@@ -188,14 +188,14 @@
                     .attr('x', (width / 2))
                     .attr('y', (margin.top / 2))
                     .style("text-anchor", "middle")
-                    .text('Frequency of Crime Between Hour Intervals');
+                    .text('Frequency of Crime in an Hour');
             }
 
             d3.select(".y-axis-text")
                 .attr("x", -(height / 2))
                 .attr("y",  -45)
                 .style("text-anchor", "middle")
-                .text("Instances of crime");
+                .text("Crime Count per Hour");
 
             d3.select('.area')
                 .data([data])
