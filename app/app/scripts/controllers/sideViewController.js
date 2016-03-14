@@ -64,7 +64,7 @@
         function initAreaChart(primaryType) {
             var margin = {top: 20, right: 20, bottom: 30, left: 50};
             var width = $(window).width() * 0.3 - margin.left - margin.right;
-            var height = $(window).height() * 0.3 - margin.left - margin.right;
+            var height = $(window).height() * 0.40 - margin.left - margin.right;
             var data = $scope.$parent.data[$scope.$parent.day];
 
             var x = d3.time.scale().range([0, width]);
@@ -143,7 +143,7 @@
 
                 var primaryType = primaryType.replace(/\w\S*/g, function(txt) {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                })
+                });
                 
                 yAxisText = "Frequency of "+primaryType;
                 xPos = -35 + primaryType.length;
@@ -155,13 +155,6 @@
             d3.select(".y-axis-text")
                 .attr("x", xPos)
                 .text(yAxisText);
-
-            console.log('Updating area chart to show: '+primaryType);
-            // Find the number of crimes per hours
-            var data = getCrimesPerHour($scope.$parent.data[$scope.$parent.day]);
-            data = _.filter(data, function(crime) {
-                return crime["Primary Type"] === primaryType;
-            });
 
             d3.select('.area')
                 .data([data])
@@ -177,7 +170,7 @@
         function getArea(datum, field) {
             var margin = {top: 20, right: 20, bottom: 30, left: 50};
             var width = $(window).width() * 0.3 - margin.left - margin.right;
-            var height = $(window).height() * 0.3 - margin.left - margin.right;
+            var height = $(window).height() * 0.40 - margin.left - margin.right;
             var x = d3.time.scale().range([0, width]);
             var y = d3.scale.linear().range([height, 0]);
 
@@ -201,7 +194,7 @@
       function generateMousemove(data) {
             var margin = {top: 20, right: 20, bottom: 30, left: 50};
             var width = $(window).width() * 0.3 - margin.left - margin.right;
-            var height = $(window).height() * 0.3 - margin.left - margin.right;
+            var height = $(window).height() * 0.40 - margin.left - margin.right;
             var x = d3.time.scale().range([0, width]);
             var y = d3.scale.linear().range([height, 0]);
             x.domain(d3.extent(data, function(d) { return d.Date; }));

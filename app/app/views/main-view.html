@@ -1,21 +1,29 @@
 <div id="main" ng-controller="MainViewCtrl">
     <div id="map" ng-controller="MapViewCtrl"></div>
     <div id="sideView" ng-controller="SideViewCtrl">
-        <div id="street-view"></div>
-        <div id="area-chart"></div>
-        <div id="toggle-buttons">
-            <div class="left">
-                <button type="button" ng-click="changeView('heatmap')" class="btn btn-warning">Heatmap</button>
-            </div>
-            <div class="right">
-                <button type="button" ng-click="changeView('icon')" class="btn btn-primary">Icons</button>
-            </div>
+        <div id="sideViewTitle">
+            <p>Chicago Crime</p>
+            <p>Data Visualization</p>
         </div>
-        <div id="calendar" class="input-group date">
-            <input name="daterange" class="form-control"/>
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </span>
+        <div id="sideViewContent">
+            <div id="street-view"></div>
+            <div id="area-chart"></div>
+            <div id="control-buttons">
+                <div id="toggle-buttons">
+                    <div class="left">
+                        <button type="button" ng-click="changeView('heatmap')" class="btn btn-warning">Heatmap</button>
+                    </div>
+                    <div class="right">
+                        <button type="button" ng-click="changeView('icon')" class="btn btn-primary">Icons</button>
+                    </div>
+                </div>
+                <div id="calendar" class="input-group date">
+                    <input name="daterange" class="form-control"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

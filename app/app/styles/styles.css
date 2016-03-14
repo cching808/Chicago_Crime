@@ -6,6 +6,7 @@ img {
 
 #main {
     min-width: 100%;
+    height: 100vh;
 }
 
 #sideView {
@@ -18,23 +19,40 @@ img {
     box-sizing: border-box;
 }
 
+#sideViewTitle {
+    height: 10%;
+    text-align: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+#sideViewContent {
+    height: 90%;
+}
+
 #toggle-buttons {
     height: 50px;
     min-width: 100%;
-    top: 65%;
     position: relative;
     overflow: auto;
     text-align: center;
 }
 
 #calendar {
-    top: 68%;
 }
 
 #street-view {
-    top: 25%;
     position: relative;
-    height: 150px;
+    height: 250px;
+    padding-bottom: 5px;
+}
+
+#area-chart {
+    padding-bottom: 20px;
+    position: relative;
+}
+
+#control-buttons {
 }
 
 .toggle-button {
@@ -90,9 +108,4 @@ img {
 .marker-block-text {
     text-decoration:underline;
     font-size: 13px;
-}
-
-#area-chart {
-    position: relative;
-    top: 25%;
 }
