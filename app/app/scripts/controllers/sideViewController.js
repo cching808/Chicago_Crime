@@ -54,7 +54,9 @@
                 });
             var yAxis = d3.svg.axis()
                 .scale(y)
-                .orient("left");
+                .orient("left")
+                .tickFormat(d3.format('.0f'))
+                .ticks(5);
             return { 
                 x: xAxis,
                 y: yAxis
@@ -133,7 +135,7 @@
 
         function updateAreaChart(primaryType) {
             // Find the number of crimes per hours
-            var data = getCrimesPerHour($scope.$parent.data[$scope.$parent.day]);
+            var data = getCrimesPerHour($scope.$parent.data[$scope.$parent.day], primaryType);
             var yAxisText;
             var xPos;
             if(primaryType) {

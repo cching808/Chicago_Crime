@@ -111,11 +111,17 @@ var util = {
         "drops": "up"
     },
     // Utility function to find the number of crimes within every hour
-    getCrimesPerHour: function(data) {
+    getCrimesPerHour: function(data, primaryType) {
         // Interval array containing tuples of crime data with their index
         var temp = JSON.parse(JSON.stringify(data));
         var interval = [];
         var currentHour = 0;
+
+        if(primaryType) {
+            temp = _.filter(temp, function(crime) {
+                return crime["Primary Type"] === primaryType;
+            });
+        }
 
         for(var i = 0; i < temp.length; i++) {
             var hour = moment(temp[i].Date, 'YYYY-MM-DDTHH:mm:ss').hour();
