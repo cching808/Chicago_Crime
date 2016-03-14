@@ -117,7 +117,7 @@
                 .attr("r", 4.5);
 
             focus.append("foreignObject")
-                .attr("x", -50)
+                .attr("x", -100)
                 .attr("dy", ".35em");
 
             svg.append("rect")
@@ -209,16 +209,31 @@
                     d = x0 - d0.Date > d1.Date - x0 ? d1 : d0;
                 var focus = d3.select(".focus");
                 focus.attr("transform", "translate(" + x(d.Date) + "," + y(d["Crimes Within This Hour"]) + ")");
-                focus.select("foreignObject").html(
-                    '<div class="d3-tooltip">' +
-                        '<p>' +
-                            '<b>' + moment(d.Date).format('h:mm a').toString().trim() + '</b>' +
-                            '<br>' +
+                focus.select("foreignObject")
+                    .html('<div class="d3-tooltip">' +
+                        '<b>' + moment(d.Date).format('h:mm a').toString().trim() + '</b>' +
+                        '<p><i>' +
                             d["Primary Type"].charAt(0) +
                             d["Primary Type"].toLowerCase().slice(1) +
+                        '</i></p>' +
+                            d["Crimes Within This Hour"] + " crimes between<br>" + moment(d.Date).format('ha') +
+                                " and " + moment(d.Date).add(1, 'hour').format('h') + moment(d.Date).format('a') +
+                        '<p>' +
                         '</p>' +
-                    '</div>'
-                );
+                        '<p style="font-size: 9px;">' +
+                            d.Description +
+                        '</p>' +
+                    '</div>')
+                    .attr('y', function() { return y(d["Crimes Within This Hour"]) > 200 ? -135: 0 })
+                    .attr('x', function() {
+                        if(x(d.Date) < 40) {
+                            return 0;
+                        }  else if(x(d.Date) > 220) {
+                            return -200;
+                        } else {
+                            return -100;
+                        }
+                    });
             }
         }
     }
