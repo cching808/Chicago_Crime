@@ -13,11 +13,13 @@
             $scope.$parent.day = start.dayOfYear();
             $scope.$parent.clearLayers();
             d3.select("#area-chart").selectAll("svg").remove();
+            d3.select("#street-view").selectAll(".gm-style").remove();
             $scope.$parent.init();
             $scope.$apply();
         });
 
         $scope.changeView = function(type) {
+            d3.select("#street-view").selectAll(".gm-style").remove();
             if(type == 'heatmap') {
                 if($scope.$parent.iconLayer){
                     $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
