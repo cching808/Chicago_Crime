@@ -96,3 +96,22 @@ img {
     position: relative;
     top: 25%;
 }
+
+#calendar-chart {
+    width: 30vw;
+    float: left;
+    overflow-x: scroll;
+    white-space:normal;
+}
+
+.day {
+  fill: #fff;
+  stroke: #ccc;
+}
+
+.month {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
