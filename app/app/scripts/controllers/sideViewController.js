@@ -19,14 +19,22 @@
 
         $scope.changeView = function(type) {
             if(type == 'heatmap') {
-                $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
-                $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
+                if($scope.$parent.iconLayer){
+                    $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
+                }
+                if($scope.$parent.heatLayer) {
+                    $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
+                }
                 $scope.$parent.heatLayer = $scope.$parent.createHeatLayer($scope.$parent.data);
                 updateAreaChart();
             }
             else {
-                $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
-                $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
+                if($scope.$parent.iconLayer){
+                    $scope.$parent.map.removeLayer($scope.$parent.iconLayer);
+                }
+                if($scope.$parent.heatLayer) {
+                    $scope.$parent.map.removeLayer($scope.$parent.heatLayer);
+                }
                 $scope.$parent.iconLayer = $scope.$parent.createIconLayer($scope.$parent.data);
                 updateAreaChart();
             }

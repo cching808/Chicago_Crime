@@ -37,20 +37,14 @@ angular.module('chicagoControllers', []);
         $http.get('/data/2016.json').success(function(data) {
             $scope.data = data;
             $scope.day = '1';
+            $scope.iconLayer = "";
             $scope.map = createMap();
             $scope.init();
         });
 
         $scope.init = function () {
             $scope.heatLayer = $scope.createHeatLayer();
-            $scope.iconLayer = $scope.createIconLayer();
             $scope.initAreaChart();
-        };
-
-        $scope.updateLayers = function () {
-            $scope.heatLayer = $scope.createHeatLayer();
-            $scope.iconLayer = $scope.createIconLayer();
-            $scope.updateAreaChart();
         };
 
         $scope.$watch('iconLayer', function(newValue, oldValue) {

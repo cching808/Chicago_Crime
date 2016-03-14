@@ -1,7 +1,18 @@
-body { margin:0; padding:0; }
+body {
+    margin:0;
+    padding:0;
+    overflow: hidden;
+}
 #map { position:absolute; top:0; bottom:0; width:70vw; }
 img {
   max-width: 100% !important;
+}
+
+#instructions {
+    margin-left: .67em;
+    margin-right: .67em;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #685206;
 }
 
 #main {
@@ -22,8 +33,10 @@ img {
 #sideViewTitle {
     height: 10%;
     text-align: center;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    margin-left: .67em;
+    margin-right: .67em;
+    margin-top: .67em;
+    border-bottom: 1px solid black;
 }
 
 #sideViewContent {
@@ -41,10 +54,12 @@ img {
 #calendar {
 }
 
+
 #street-view {
     position: relative;
-    height: 250px;
-    padding-bottom: 5px;
+    height: 40%;
+    padding-bottom: 3px;
+    margin-top: 3px;
 }
 
 #area-chart {
@@ -53,6 +68,33 @@ img {
 }
 
 #control-buttons {
+}
+
+.instruction-title {
+    color: #111;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 5px;
+    margin: 3px 0 3px;
+    padding-top: 35px;
+    text-align: center;
+}
+
+.instruction-text {
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0 0 24px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.title-text {
+    color: #111;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 30px;
+    line-height: 1;
+    text-align: center;
 }
 
 .toggle-button {

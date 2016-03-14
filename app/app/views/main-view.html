@@ -2,11 +2,26 @@
     <div id="map" ng-controller="MapViewCtrl"></div>
     <div id="sideView" ng-controller="SideViewCtrl">
         <div id="sideViewTitle">
-            <p>Chicago Crime</p>
-            <p>Data Visualization</p>
+            <div class="title-text">Chicago Crime</div>
+            <div class="title-text">Data Visualization Tool</div>
         </div>
         <div id="sideViewContent">
-            <div id="street-view"></div>
+            <div id="street-view">
+                <div id="instructions">
+                    <div class="instruction-title">
+                        User Interface Guidelines:
+                    </div>
+                    <p class="instruction-text">
+                        <br>
+                        1. Click the buttons below to switch between
+                        heatmap or icon view layer.
+                        <br>
+                        2. Click and drag map to change location within Chicago.
+                        <br>
+                        3. Double click on map, use scroll bar, or the "pinch and spread" method to zoom in and out of the page.
+                    </p>
+                </div>
+            </div>
             <div id="area-chart"></div>
             <div id="control-buttons">
                 <div id="toggle-buttons">
