@@ -35,4 +35,3 @@ for(let i = 0; i < crimes.length; i++) {
 for(let j = 0; j < interval.length; j++) {
     crimes[interval[j].index]["Crimes Within This Hour"] = interval.length;
 }
-
