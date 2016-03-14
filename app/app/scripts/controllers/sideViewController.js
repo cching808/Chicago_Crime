@@ -115,18 +115,19 @@
                 .call(axes.y)
                 .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("x", -90)
-                .attr("y", -45)
+                .attr("x", -(height / 2))
+                .attr("y",  -45)
                 .attr("dy", ".71em")
                 .attr("class", "y-axis-text")
-                .style("text-anchor", "end")
+                .style("text-anchor", "middle")
                 .text("Instances of crime");
 
             svg.append("g")
                 .attr("class", "area-chart-title")
                 .append("text")
-                .attr("x", 40)
-                .attr("y", 10)
+                .attr('x', (width / 2))
+                .attr('y', (margin.top / 2))
+                .attr("text-anchor", "middle")
                 .text("Frequency of Crime Between Hour Intervals");
 
             var focus = svg.append("g")
@@ -154,6 +155,10 @@
         function updateAreaChart(primaryType) {
             // Find the number of crimes per hours
             var data = getCrimesPerHour($scope.$parent.data[$scope.$parent.day], primaryType);
+
+            var margin = {top: 20, right: 20, bottom: 30, left: 50};
+            var width = $(window).width() * 0.3 - margin.left - margin.right;
+            var height = $(window).height() * 0.40 - margin.left - margin.right;
             var yAxisText;
             var xPos;
             if(primaryType) {
@@ -170,8 +175,9 @@
                     .remove()
                 d3.select('.area-chart-title')
                     .append('text')
-                    .attr("x", 40)
-                    .attr("y", 10)
+                    .attr('x', (width / 2))
+                    .attr('y', (margin.top / 2))
+                    .style("text-anchor", "middle")
                     .text('Frequency of '+primaryType+' Between Hour Intervals');
             } else {
                 // Update the area chart title
@@ -179,14 +185,16 @@
                     .remove()
                 d3.select('.area-chart-title')
                     .append('text')
-                    .attr("x", 40)
-                    .attr("y", 10)
+                    .attr('x', (width / 2))
+                    .attr('y', (margin.top / 2))
+                    .style("text-anchor", "middle")
                     .text('Frequency of Crime Between Hour Intervals');
             }
 
             d3.select(".y-axis-text")
-                .attr("x", -90)
-                .attr("y", -45)
+                .attr("x", -(height / 2))
+                .attr("y",  -45)
+                .style("text-anchor", "middle")
                 .text("Instances of crime");
 
             d3.select('.area')
