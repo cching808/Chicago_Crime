@@ -68,32 +68,7 @@ var util = {
         }
     },
     datepickerOptions: {
-        "ranges": {
-            "Today": [
-                "2016-03-12T06:09:20.085Z",
-                "2016-03-12T06:09:20.085Z"
-            ],
-            "Yesterday": [
-                "2016-03-11T06:09:20.085Z",
-                "2016-03-11T06:09:20.085Z"
-            ],
-            "Last 7 Days": [
-                "2016-03-06T06:09:20.085Z",
-                "2016-03-12T06:09:20.085Z"
-            ],
-            "Last 30 Days": [
-                "2016-02-12T06:09:20.085Z",
-                "2016-03-12T06:09:20.085Z"
-            ],
-            "This Month": [
-                "2016-03-01T08:00:00.000Z",
-                "2016-04-01T06:59:59.999Z"
-            ],
-            "Last Month": [
-                "2016-02-01T08:00:00.000Z",
-                "2016-03-01T07:59:59.999Z"
-            ]
-        },
+        "singleDatePicker": true,
         "locale": {
             "format": "MM/DD/YYYY",
             "separator": " - ",
@@ -128,7 +103,7 @@ var util = {
             "firstDay": 1
         },
         "alwaysShowCalendars": true,
-        "startDate": "03/05/2016",
+        "startDate": "01/01/2016",
         "endDate": "03/11/2016",
         "minDate": "01/01/2016",
         "maxDate": "02/19/2016",

@@ -10,6 +10,11 @@
         // Initialize the calendar
         $('input[name="daterange"]').daterangepicker(options, function(start, end, label) {
             console.log("New date range selected: " + start.format("YYYY-MM-DD") + " to " + end.format("YYYY-MM-DD") + " (predefined range: " + label + ")");
+            $scope.$parent.day = start.dayOfYear();
+            $scope.$parent.clearLayers();
+            d3.select("#area-chart").selectAll("svg").remove();
+            $scope.$parent.init();
+            $scope.$apply();
         });
 
         $scope.changeView = function(type) {
@@ -57,17 +62,17 @@
         }
 
         function initAreaChart(primaryType) {
-            var day = '1';
             var margin = {top: 20, right: 20, bottom: 30, left: 50};
             var width = $(window).width() * 0.3 - margin.left - margin.right;
             var height = $(window).height() * 0.3 - margin.left - margin.right;
-            var data = $scope.$parent.data[day];
+            var data = $scope.$parent.data[$scope.$parent.day];
 
             var x = d3.time.scale().range([0, width]);
             var y = d3.scale.linear().range([height, 0]);
 
             var svg = d3.select('#area-chart')
                 .append('svg')
+                .attr("id", "areaChart")
                 .attr('width', width + margin.left + margin.right)
                 .attr('height', height + margin.top + margin.bottom)
                 .append('g')
@@ -127,9 +132,8 @@
         $scope.$parent.initAreaChart = initAreaChart;
 
         function updateAreaChart(primaryType) {
-            var day = '1';
             // Find the number of crimes per hours
-            var data = getCrimesPerHour($scope.$parent.data[day]);
+            var data = getCrimesPerHour($scope.$parent.data[$scope.$parent.day]);
             var yAxisText;
             var xPos;
             if(primaryType) {
@@ -151,6 +155,13 @@
             d3.select(".y-axis-text")
                 .attr("x", xPos)
                 .text(yAxisText);
+
+            console.log('Updating area chart to show: '+primaryType);
+            // Find the number of crimes per hours
+            var data = getCrimesPerHour($scope.$parent.data[$scope.$parent.day]);
+            data = _.filter(data, function(crime) {
+                return crime["Primary Type"] === primaryType;
+            });
 
             d3.select('.area')
                 .data([data])
@@ -176,7 +187,7 @@
             var axes = formatAxes(x, y);
 
             d3.select('.x.axis').call(axes.x);
-            d3.select('.y.axis').call(axes.y)
+            d3.select('.y.axis').call(axes.y);
 
             d3.select(".overlay")
                 .on("mousemove", generateMousemove(datum));
@@ -217,7 +228,6 @@
                 );
             }
         }
-    
     }
 
 })(util.datepickerOptions, util.getCrimesPerHour, util.getCrimeAttribute);
