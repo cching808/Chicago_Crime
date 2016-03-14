@@ -112,12 +112,19 @@
                 .call(axes.y)
                 .append("text")
                 .attr("transform", "rotate(-90)")
-                .attr("x", -50)
+                .attr("x", -90)
                 .attr("y", -45)
                 .attr("dy", ".71em")
                 .attr("class", "y-axis-text")
                 .style("text-anchor", "end")
-                .text("Frequency of Total Crime");
+                .text("Instances of crime");
+
+            svg.append("g")
+                .attr("class", "area-chart-title")
+                .append("text")
+                .attr("x", 70)
+                .attr("y", 10)
+                .text("Frequency of Crime Between Hour Intervals");
 
             var focus = svg.append("g")
                 .attr("class", "focus")
@@ -155,16 +162,29 @@
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
                 });
                 
-                yAxisText = "Frequency of "+primaryType;
-                xPos = -35 + primaryType.length;
+                // Update the area chart title
+                d3.select('.area-chart-title text')
+                    .remove()
+                d3.select('.area-chart-title')
+                    .append('text')
+                    .attr("x", function() { return  70 - primaryType.length / 1.2 })
+                    .attr("y", 10)
+                    .text('Frequency of '+primaryType+' Between Hour Intervals');
             } else {
-                yAxisText = "Frequency of Total Crime";
-                xPos = -50;
+                // Update the area chart title
+                d3.select('.area-chart-title text')
+                    .remove()
+                d3.select('.area-chart-title')
+                    .append('text')
+                    .attr("x", 70)
+                    .attr("y", 10)
+                    .text('Frequency of Crime Between Hour Intervals');
             }
 
             d3.select(".y-axis-text")
-                .attr("x", xPos)
-                .text(yAxisText);
+                .attr("x", -90)
+                .attr("y", -45)
+                .text("Instances of crime");
 
             d3.select('.area')
                 .data([data])
