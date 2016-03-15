@@ -2,7 +2,7 @@
 
 ## Team: Corey Ching & Andrew Kwon
 
-![image alt text](image_0.png)![image alt text](image_1.png)
+![image alt text](assets/image_0.png)![image alt text](assets/image_1.png)
 
 [https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2)
 
