@@ -1,6 +1,6 @@
-**Chicago Crime Data Visualization Tool **
+# Chicago Crime Data Visualization Tool 
 
-Team: Corey Ching & Andrew Kwon
+## Team: Corey Ching & Andrew Kwon
 
 ![image alt text](image_0.png)![image alt text](image_1.png)
 
@@ -50,7 +50,7 @@ The visualization application first shows a map of Chicago with a heatmap overla
 
 For this project, we utilized a large variety of tools and frameworks to implement this application. For the map and icon view, we used the Mapbox platform with the Leaflet to overlay a heatmap visualization. We used the Google Street View Panorama API for the street view in the sidebar, D3 for the area chart, Bootstrap date-picker for the calendar interface, and Angular, underscore.js, and jQuery for our development tools and frameworks. 
 
-**_How we split the project up: _**
+**_How we split the project up_**
 
 The Initial Set-Up:
 
